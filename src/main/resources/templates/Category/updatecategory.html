@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Update Category</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body style="background-color: lightgray;">
+
+	<div class="container p-3 my-3 border bg-white">
+		<nav class="navbar navbar-expand-sm bg-light navbar-light">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a href="/notelist" class="btn btn-link">NOTE</a></li>
+				<li class="nav-item"><a href="/newnote" class="btn btn-link">New
+						note</a></li>
+				<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a
+					href="/userlist" class="btn btn-link">Manage Users</a></li>
+
+
+				<li class="nav-item">
+					<form th:action="@{/logout}" method="post" align="left">
+						<input type="submit" value="Sign Out" class="btn btn-link" />
+					</form>
+				</li>
+			</ul>
+		</nav>
+		<div class="jumbotron text-white"
+			style="background-image: url('../image/Book-banner.jpg'); opacity: 0.9;">
+			<h1 style="color: white; text-shadow: 4px 4px 8px #000000;">Update
+				Category</h1>
+		</div>
+		<div class="form-group">
+			<form th:object="${category}" th:action="@{../save}" action="#"
+				method="post">
+				<input type="hidden" id="category_id" th:field="*{category_id}"
+					readonly="readonly" /> <label for="name">Category Name</label> <input
+					type="text" id="name" th:field="*{name}" />
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<input class="btn btn-success" type="submit" value="Save"></input>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

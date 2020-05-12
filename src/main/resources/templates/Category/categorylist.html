@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Category list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+</head>
+<body style="background-color: lightgray;">
+
+	<div class="container p-3 my-3 border bg-white">
+		<nav class="navbar navbar-expand-sm bg-light navbar-light">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a href="/notelist" class="btn btn-link">NOTE</a></li>
+				<li class="nav-item"><a href="/newnote" class="btn btn-link">New
+						note</a></li>
+
+				<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a
+					href="/userlist" class="btn btn-link">Manage Users</a></li>
+
+
+				<li class="nav-item">
+					<form th:action="@{/logout}" method="post" align="left">
+						<input type="submit" value="Sign Out" class="btn btn-link" />
+					</form>
+				</li>
+			</ul>
+		</nav>
+		<div class="jumbotron text-white "
+			style="background-image: url('image/Book-banner.jpg'); opacity: 0.9;">
+			<h1 style="color: white; text-shadow: 4px 4px 8px #000000;">Category</h1>
+		</div>
+
+		<table class="table table-striped">
+			<tr>
+				<th>Name</th>
+				<th></th>
+			</tr>
+			<tr th:each="category : ${categories}">
+				<td><a
+					th:href="@{/updatecategory/{id}(id=${category.category_id})}"
+					class="btn btn-link"><span th:text="${category.name}"></span></a></td>
+				</td>
+				<td><a
+					th:href="@{/delete/{category_id}(category_id=${category.category_id})}"
+					class="btn btn-danger">Delete</a></td>
+			</tr>
+		</table>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>New Note</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+
+</head>
+<body style="background-color: lightgray;">
+	<div class="container p-3 my-3 border bg-white">
+		<nav class="navbar navbar-expand-sm bg-light navbar-light">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a href="/notelist" class="btn btn-link">NOTE</a></li>
+				<li class="nav-item"><a href="/categorylist"
+					class="btn btn-link">Manage Category</a></li>
+				<li class="nav-item" sec:authorize="hasAuthority('ADMIN')"><a
+					href="/userlist" class="btn btn-link">Manage Users</a></li>
+
+
+				<li class="nav-item">
+					<form th:action="@{/logout}" method="post" align="left">
+						<input type="submit" value="Sign Out" class="btn btn-link" />
+					</form>
+				</li>
+			</ul>
+		</nav>
+		<div class="jumbotron text-white "
+			style="background-image: url('image/Book-banner.jpg'); opacity: 0.9;">
+			<h1 style="color: white; text-shadow: 4px 4px 8px #000000;">New
+				Note</h1>
+		</div>
+		<div class="form-group">
+			<form th:object="${note}" th:action="@{savenote}" action="#"
+				method="post">
+
+				<input type="hidden" id="userid" th:field="*{user.userid}"
+					readonly="readonly" />
+
+				<div class="form-group">
+					<label for="title">Title</label><br> <input type="text"
+						id="title" th:field="*{title}" class="form-control" />
+				</div>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<div class="form-group">
+					<label for="category">Category </label> <a
+						th:href="@{/newcategory}" class="btn btn-link">New Category</a> <select
+						id="categorylist" th:field="*{category.category_id}"
+						class="form-control">
+						<option th:each="category: ${categories}"
+							th:value="${category.category_id}" th:text="${category.name}"></option>
+					</select>
+				</div>
+				<div style="clear: both; display: block; height: 10px;"></div>
+				<div class="form-group">
+					<label for="content">content</label>
+					<div style="clear: both; display: block; height: 10px;"></div>
+					<textarea rows="10" cols="135" id="content" th:field="*{content}" />
+				</div>
+				<div style="clear: both; display: block; height: 10px;"></div>
+
+				<div style="clear: both; display: block; height: 10px;"></div>
+
+				<input class="btn btn-success" type="submit" value="Add Note"></input>
+				<a th:href="@{/notelist}" class="btn btn-warning">Back</a>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

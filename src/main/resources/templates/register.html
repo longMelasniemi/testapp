@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Register form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+
+</head>
+<body style="background-color: lightgray;">
+
+	<div class="container p-3 my-3 border bg-white	">
+		<div class="jumbotron text-white "
+			style="background-image: url('image/Book-banner.jpg'); opacity: 0.9;">
+			<h1 style="color: white; text-shadow: 4px 4px 8px #000000;">Register
+				Form</h1>
+		</div>
+		<div class="row">
+			<div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+				<div class="card card-signin my-5">
+					<div class="card-body">
+						<form th:object="${registerform}" th:action="@{/saveuser}"
+							action="#" method="post">
+							<div class="form-label-group">
+								<label for="title">Username</label><br> <input type="text"
+									id="username" th:field="*{username}" class="form-control" />
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('username')}"
+									th:errors="*{username}">Username wrong!</div>
+							</div>
+							<div style="clear: both; display: block; height: 10px;"></div>
+							<div class="form-label-groupp">
+								<label for="password">Password</label> <input type="password"
+									id="password" th:field="*{password}" class="form-control" />
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('password')}"
+									th:errors="*{password}">Password Error!</div>
+							</div>
+							<div style="clear: both; display: block; height: 10px;"></div>
+							<div class="form-label-group">
+								<label for="passwordcheck">Re-type password</label>
+								<div style="clear: both; display: block; height: 10px;"></div>
+								<input type="password" id="repassword"
+									th:field="*{passwordCheck}" class="form-control" />
+								<div style="color: red;"
+									th:if="${#fields.hasErrors('passwordCheck')}"
+									th:errors="*{passwordCheck}">Password does not match!</div>
+							</div>
+							<div style="clear: both; display: block; height: 10px;"></div>
+
+							<div style="clear: both; display: block; height: 10px;"></div>
+							<input class="btn btn-success" type="submit" value="Submit"></input>
+							<a href="/login" class="btn btn-warning">Login</a>
+
+						</form>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</body>
+</html>
